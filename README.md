@@ -16,7 +16,7 @@
 | `cart.v1` | [shop-cart](../shop-cart/README.md) |
 | `order.v1` | [shop-order](../shop-order/README.md) |
 | `payment.v1` | [shop-payment](../shop-payment/README.md) |
-| `events.v1` | Kafka-сообщения (планируется) |
+| `events.v1` | асинхронные события (планируется) |
 
 Локальный стек: [shop-infra](../shop-infra/README.md)
 
@@ -32,6 +32,7 @@ proto/                  # исходные .proto файлы
 └── events/v1/
 
 gen/go/                 # сгенерированный Go-код (protoc-gen-go, protoc-gen-go-grpc)
+pkg/auth/               # общий JWT и gRPC auth interceptor
 Makefile                # генерация
 go.mod
 ```
@@ -147,6 +148,7 @@ import (
     orderv1 "github.com/repeter513/shop-proto/gen/go/order/v1"
     paymentv1 "github.com/repeter513/shop-proto/gen/go/payment/v1"
     eventsv1 "github.com/repeter513/shop-proto/gen/go/events/v1"
+    pkgauth "github.com/repeter513/shop-proto/pkg/auth"
 )
 ```
 
