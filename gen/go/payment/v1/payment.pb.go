@@ -161,7 +161,6 @@ func (x *Payment) GetCreatedAt() *timestamppb.Timestamp {
 type CreatePaymentRequest struct {
 	state           protoimpl.MessageState `protogen:"open.v1"`
 	OrderId         int64                  `protobuf:"varint,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
-	Amount          int64                  `protobuf:"varint,3,opt,name=amount,proto3" json:"amount,omitempty"`
 	SimulateFailure bool                   `protobuf:"varint,4,opt,name=simulate_failure,json=simulateFailure,proto3" json:"simulate_failure,omitempty"` // For testing purposes, to simulate a failed payment
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
@@ -200,13 +199,6 @@ func (*CreatePaymentRequest) Descriptor() ([]byte, []int) {
 func (x *CreatePaymentRequest) GetOrderId() int64 {
 	if x != nil {
 		return x.OrderId
-	}
-	return 0
-}
-
-func (x *CreatePaymentRequest) GetAmount() int64 {
-	if x != nil {
-		return x.Amount
 	}
 	return 0
 }
@@ -484,11 +476,10 @@ const file_payment_v1_payment_proto_rawDesc = "" +
 	"\x06amount\x18\x04 \x01(\x03R\x06amount\x121\n" +
 	"\x06status\x18\x05 \x01(\x0e2\x19.payment.v1.PaymentStatusR\x06status\x129\n" +
 	"\n" +
-	"created_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"\x83\x01\n" +
+	"created_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"y\n" +
 	"\x14CreatePaymentRequest\x12\x19\n" +
-	"\border_id\x18\x01 \x01(\x03R\aorderId\x12\x16\n" +
-	"\x06amount\x18\x03 \x01(\x03R\x06amount\x12)\n" +
-	"\x10simulate_failure\x18\x04 \x01(\bR\x0fsimulateFailureJ\x04\b\x02\x10\x03R\auser_id\"i\n" +
+	"\border_id\x18\x01 \x01(\x03R\aorderId\x12)\n" +
+	"\x10simulate_failure\x18\x04 \x01(\bR\x0fsimulateFailureJ\x04\b\x02\x10\x03J\x04\b\x03\x10\x04R\auser_idR\x06amount\"i\n" +
 	"\x15CreatePaymentResponse\x12\x1d\n" +
 	"\n" +
 	"payment_id\x18\x01 \x01(\x03R\tpaymentId\x121\n" +

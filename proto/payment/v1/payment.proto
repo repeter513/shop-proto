@@ -29,9 +29,8 @@ message Payment {
 
 message CreatePaymentRequest {
   int64 order_id = 1;
-  reserved 2;
-  reserved "user_id";
-  int64 amount = 3;
+  reserved 2,3;
+  reserved "user_id", "amount";
   bool simulate_failure = 4; // For testing purposes, to simulate a failed payment
 }
 message CreatePaymentResponse {
