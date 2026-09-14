@@ -16,21 +16,23 @@ message CartItem {
   int64 product_id = 1;
   int32 quantity = 2;
   string name = 3;
-  double price = 4;
+  int64 price = 4;
 }
 message Cart {
   int64 user_id = 1;
   repeated CartItem items = 2;
-  double total_price = 3;
+  int64 total_price = 3;
 }
 message GetCartRequest {
-  int64 user_id = 1;
+  reserved 1;
+  reserved "user_id";
 }
 message GetCartResponse {
   Cart cart = 1;
 }
 message AddToCartRequest {
-  int64 user_id = 1;
+  reserved 1;
+  reserved "user_id";
   int64 product_id = 2;
   int32 quantity = 3;
 }
@@ -38,7 +40,8 @@ message AddToCartResponse {
   Cart cart = 1;
 }
 message UpdateCartItemRequest {
-  int64 user_id = 1;
+  reserved 1;
+  reserved "user_id";
   int64 product_id = 2;
   int32 quantity = 3;
 }
@@ -46,14 +49,16 @@ message UpdateCartItemResponse {
   Cart cart = 1;
 }
 message RemoveFromCartRequest {
-  int64 user_id = 1;
+  reserved 1;
+  reserved "user_id";
   int64 product_id = 2;
 }
 message RemoveFromCartResponse {
   Cart cart = 1;
 }
 message ClearCartRequest {
-  int64 user_id = 1;
+  reserved 1;
+  reserved "user_id";
 }
 message ClearCartResponse {
 

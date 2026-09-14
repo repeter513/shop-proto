@@ -171,7 +171,7 @@ type OrderEvent struct {
 	Type          ORDER_EVENT_TYPE       `protobuf:"varint,1,opt,name=type,proto3,enum=events.v1.ORDER_EVENT_TYPE" json:"type,omitempty"`
 	OrderId       int64                  `protobuf:"varint,2,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
 	UserId        int64                  `protobuf:"varint,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	TotalPrice    float64                `protobuf:"fixed64,4,opt,name=total_price,json=totalPrice,proto3" json:"total_price,omitempty"`
+	TotalPrice    int64                  `protobuf:"varint,4,opt,name=total_price,json=totalPrice,proto3" json:"total_price,omitempty"`
 	PaymentId     int64                  `protobuf:"varint,5,opt,name=payment_id,json=paymentId,proto3" json:"payment_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -228,7 +228,7 @@ func (x *OrderEvent) GetUserId() int64 {
 	return 0
 }
 
-func (x *OrderEvent) GetTotalPrice() float64 {
+func (x *OrderEvent) GetTotalPrice() int64 {
 	if x != nil {
 		return x.TotalPrice
 	}
@@ -344,7 +344,7 @@ const file_events_v1_events_proto_rawDesc = "" +
 	"\x04type\x18\x01 \x01(\x0e2\x1b.events.v1.ORDER_EVENT_TYPER\x04type\x12\x19\n" +
 	"\border_id\x18\x02 \x01(\x03R\aorderId\x12\x17\n" +
 	"\auser_id\x18\x03 \x01(\x03R\x06userId\x12\x1f\n" +
-	"\vtotal_price\x18\x04 \x01(\x01R\n" +
+	"\vtotal_price\x18\x04 \x01(\x03R\n" +
 	"totalPrice\x12\x1d\n" +
 	"\n" +
 	"payment_id\x18\x05 \x01(\x03R\tpaymentId\"\x8b\x02\n" +

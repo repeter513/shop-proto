@@ -82,7 +82,7 @@ type Order struct {
 	OrderId       int64                  `protobuf:"varint,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
 	UserId        int64                  `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Items         []*OrderItem           `protobuf:"bytes,3,rep,name=items,proto3" json:"items,omitempty"`
-	TotalPrice    float64                `protobuf:"fixed64,4,opt,name=total_price,json=totalPrice,proto3" json:"total_price,omitempty"`
+	TotalPrice    int64                  `protobuf:"varint,4,opt,name=total_price,json=totalPrice,proto3" json:"total_price,omitempty"`
 	Status        OrderStatus            `protobuf:"varint,5,opt,name=status,proto3,enum=order.v1.OrderStatus" json:"status,omitempty"`
 	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	PaymentId     int64                  `protobuf:"varint,7,opt,name=payment_id,json=paymentId,proto3" json:"payment_id,omitempty"`
@@ -141,7 +141,7 @@ func (x *Order) GetItems() []*OrderItem {
 	return nil
 }
 
-func (x *Order) GetTotalPrice() float64 {
+func (x *Order) GetTotalPrice() int64 {
 	if x != nil {
 		return x.TotalPrice
 	}
@@ -174,7 +174,7 @@ type OrderItem struct {
 	ProductId     int64                  `protobuf:"varint,1,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
 	Quantity      int32                  `protobuf:"varint,2,opt,name=quantity,proto3" json:"quantity,omitempty"`
 	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Price         float64                `protobuf:"fixed64,4,opt,name=price,proto3" json:"price,omitempty"`
+	Price         int64                  `protobuf:"varint,4,opt,name=price,proto3" json:"price,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -230,7 +230,7 @@ func (x *OrderItem) GetName() string {
 	return ""
 }
 
-func (x *OrderItem) GetPrice() float64 {
+func (x *OrderItem) GetPrice() int64 {
 	if x != nil {
 		return x.Price
 	}
@@ -239,7 +239,6 @@ func (x *OrderItem) GetPrice() float64 {
 
 type CreateOrderRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -272,13 +271,6 @@ func (x *CreateOrderRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use CreateOrderRequest.ProtoReflect.Descriptor instead.
 func (*CreateOrderRequest) Descriptor() ([]byte, []int) {
 	return file_order_v1_order_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *CreateOrderRequest) GetUserId() int64 {
-	if x != nil {
-		return x.UserId
-	}
-	return 0
 }
 
 type CreateOrderResponse struct {
@@ -591,7 +583,6 @@ func (x *GetOrderResponse) GetOrder() *Order {
 
 type ListOrdersRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Page          int32                  `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
 	PageSize      int32                  `protobuf:"varint,3,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -626,13 +617,6 @@ func (x *ListOrdersRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use ListOrdersRequest.ProtoReflect.Descriptor instead.
 func (*ListOrdersRequest) Descriptor() ([]byte, []int) {
 	return file_order_v1_order_proto_rawDescGZIP(), []int{10}
-}
-
-func (x *ListOrdersRequest) GetUserId() int64 {
-	if x != nil {
-		return x.UserId
-	}
-	return 0
 }
 
 func (x *ListOrdersRequest) GetPage() int32 {
@@ -710,7 +694,7 @@ const file_order_v1_order_proto_rawDesc = "" +
 	"\border_id\x18\x01 \x01(\x03R\aorderId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\x03R\x06userId\x12)\n" +
 	"\x05items\x18\x03 \x03(\v2\x13.order.v1.OrderItemR\x05items\x12\x1f\n" +
-	"\vtotal_price\x18\x04 \x01(\x01R\n" +
+	"\vtotal_price\x18\x04 \x01(\x03R\n" +
 	"totalPrice\x12-\n" +
 	"\x06status\x18\x05 \x01(\x0e2\x15.order.v1.OrderStatusR\x06status\x129\n" +
 	"\n" +
@@ -722,9 +706,8 @@ const file_order_v1_order_proto_rawDesc = "" +
 	"product_id\x18\x01 \x01(\x03R\tproductId\x12\x1a\n" +
 	"\bquantity\x18\x02 \x01(\x05R\bquantity\x12\x12\n" +
 	"\x04name\x18\x03 \x01(\tR\x04name\x12\x14\n" +
-	"\x05price\x18\x04 \x01(\x01R\x05price\"-\n" +
-	"\x12CreateOrderRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x03R\x06userId\"<\n" +
+	"\x05price\x18\x04 \x01(\x03R\x05price\"#\n" +
+	"\x12CreateOrderRequestJ\x04\b\x01\x10\x02R\auser_id\"<\n" +
 	"\x13CreateOrderResponse\x12%\n" +
 	"\x05order\x18\x01 \x01(\v2\x0f.order.v1.OrderR\x05order\",\n" +
 	"\x0fPayOrderRequest\x12\x19\n" +
@@ -738,11 +721,10 @@ const file_order_v1_order_proto_rawDesc = "" +
 	"\x0fGetOrderRequest\x12\x19\n" +
 	"\border_id\x18\x01 \x01(\x03R\aorderId\"9\n" +
 	"\x10GetOrderResponse\x12%\n" +
-	"\x05order\x18\x01 \x01(\v2\x0f.order.v1.OrderR\x05order\"]\n" +
-	"\x11ListOrdersRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x12\n" +
+	"\x05order\x18\x01 \x01(\v2\x0f.order.v1.OrderR\x05order\"S\n" +
+	"\x11ListOrdersRequest\x12\x12\n" +
 	"\x04page\x18\x02 \x01(\x05R\x04page\x12\x1b\n" +
-	"\tpage_size\x18\x03 \x01(\x05R\bpageSize\"^\n" +
+	"\tpage_size\x18\x03 \x01(\x05R\bpageSizeJ\x04\b\x01\x10\x02R\auser_id\"^\n" +
 	"\x12ListOrdersResponse\x12'\n" +
 	"\x06orders\x18\x01 \x03(\v2\x0f.order.v1.OrderR\x06orders\x12\x1f\n" +
 	"\vtotal_count\x18\x02 \x01(\x05R\n" +

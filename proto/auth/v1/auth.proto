@@ -59,7 +59,8 @@ message RefreshTokenResponse {
 }
 
 message GetUserInfoRequest {
-  int64 user_id = 1;
+  reserved 1;
+  reserved "user_id";
 }
 
 message GetUserInfoResponse {
