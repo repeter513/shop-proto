@@ -4,7 +4,7 @@ import "google/protobuf/timestamp.proto";
 
 package payment.v1;
 
-option go_package = "github.com/repeter513/shop-proto/gen/go/payment/v1;payment1";
+option go_package = "github.com/repeter513/shop-proto/gen/go/payment/v1;paymentv1";
 
 service PaymentService {
   rpc CreatePayment(CreatePaymentRequest) returns (CreatePaymentResponse);
@@ -29,9 +29,8 @@ message Payment {
 
 message CreatePaymentRequest {
   int64 order_id = 1;
-  reserved 2,3;
-  reserved "user_id", "amount";
-  bool simulate_failure = 4; // For testing purposes, to simulate a failed payment
+  reserved 2,3,4;
+  reserved "user_id", "amount", "simulate_failure";
 }
 message CreatePaymentResponse {
   int64 payment_id = 1;

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package cart.v1;
 
-option go_package = "github.com/repeter513/shop-proto/gen/go/cart/v1;cart1";
+option go_package = "github.com/repeter513/shop-proto/gen/go/cart/v1;cartv1";
 
 service CartService {
   rpc AddToCart(AddToCartRequest) returns (AddToCartResponse);

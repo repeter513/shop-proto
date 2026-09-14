@@ -4,7 +4,7 @@
 // 	protoc        v7.34.1
 // source: cart/v1/cart.proto
 
-package cart1
+package cartv1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -624,7 +624,7 @@ const file_cart_v1_cart_proto_rawDesc = "" +
 	"\x0eUpdateCartItem\x12\x1e.cart.v1.UpdateCartItemRequest\x1a\x1f.cart.v1.UpdateCartItemResponse\x12Q\n" +
 	"\x0eRemoveFromCart\x12\x1e.cart.v1.RemoveFromCartRequest\x1a\x1f.cart.v1.RemoveFromCartResponse\x12<\n" +
 	"\aGetCart\x12\x17.cart.v1.GetCartRequest\x1a\x18.cart.v1.GetCartResponse\x12B\n" +
-	"\tClearCart\x12\x19.cart.v1.ClearCartRequest\x1a\x1a.cart.v1.ClearCartResponseB7Z5github.com/repeter513/shop-proto/gen/go/cart/v1;cart1b\x06proto3"
+	"\tClearCart\x12\x19.cart.v1.ClearCartRequest\x1a\x1a.cart.v1.ClearCartResponseB8Z6github.com/repeter513/shop-proto/gen/go/cart/v1;cartv1b\x06proto3"
 
 var (
 	file_cart_v1_cart_proto_rawDescOnce sync.Once

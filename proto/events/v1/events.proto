@@ -4,16 +4,15 @@ import "google/protobuf/timestamp.proto";
 
 package events.v1;
 
-option go_package = "github.com/repeter513/shop-proto/gen/go/events/v1;events1";
+option go_package = "github.com/repeter513/shop-proto/gen/go/events/v1;eventsv1";
 
-
-enum ORDER_EVENT_TYPE {
+enum OrderEventType {
   ORDER_EVENT_TYPE_UNSPECIFIED = 0;
   ORDER_EVENT_TYPE_PAID = 1;
   ORDER_EVENT_TYPE_FAILED = 2;
 }
 message OrderEvent {
-  ORDER_EVENT_TYPE type = 1;
+  OrderEventType type = 1;
   int64 order_id = 2;
   int64 user_id = 3;
   int64 total_price = 4;

@@ -80,6 +80,8 @@ go.mod
 | RPC | Описание |
 |-----|----------|
 | `CreateOrder` | Создать заказ из корзины пользователя |
+| `PayOrder` | Оплатить заказ |
+| `CancelOrder` | Отменить заказ |
 | `GetOrder` | Заказ по ID |
 | `ListOrders` | Список заказов пользователя с пагинацией |
 
@@ -93,8 +95,7 @@ go.mod
 | `GetPayment` | Платёж по ID |
 | `ListPayments` | Список платежей с фильтрами |
 
-Статусы платежа: `PENDING`, `SUCCESS`, `FAILED`.  
-В `CreatePaymentRequest` есть флаг `simulate_failure` для тестирования отказов.
+Статусы платежа: `PENDING`, `SUCCESS`, `FAILED`.
 
 ## События (`events.v1`)
 

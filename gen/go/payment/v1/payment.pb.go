@@ -4,7 +4,7 @@
 // 	protoc        v7.34.1
 // source: payment/v1/payment.proto
 
-package payment1
+package paymentv1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -159,11 +159,10 @@ func (x *Payment) GetCreatedAt() *timestamppb.Timestamp {
 }
 
 type CreatePaymentRequest struct {
-	state           protoimpl.MessageState `protogen:"open.v1"`
-	OrderId         int64                  `protobuf:"varint,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
-	SimulateFailure bool                   `protobuf:"varint,4,opt,name=simulate_failure,json=simulateFailure,proto3" json:"simulate_failure,omitempty"` // For testing purposes, to simulate a failed payment
-	unknownFields   protoimpl.UnknownFields
-	sizeCache       protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	OrderId       int64                  `protobuf:"varint,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *CreatePaymentRequest) Reset() {
@@ -201,13 +200,6 @@ func (x *CreatePaymentRequest) GetOrderId() int64 {
 		return x.OrderId
 	}
 	return 0
-}
-
-func (x *CreatePaymentRequest) GetSimulateFailure() bool {
-	if x != nil {
-		return x.SimulateFailure
-	}
-	return false
 }
 
 type CreatePaymentResponse struct {
@@ -476,10 +468,9 @@ const file_payment_v1_payment_proto_rawDesc = "" +
 	"\x06amount\x18\x04 \x01(\x03R\x06amount\x121\n" +
 	"\x06status\x18\x05 \x01(\x0e2\x19.payment.v1.PaymentStatusR\x06status\x129\n" +
 	"\n" +
-	"created_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"y\n" +
+	"created_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"f\n" +
 	"\x14CreatePaymentRequest\x12\x19\n" +
-	"\border_id\x18\x01 \x01(\x03R\aorderId\x12)\n" +
-	"\x10simulate_failure\x18\x04 \x01(\bR\x0fsimulateFailureJ\x04\b\x02\x10\x03J\x04\b\x03\x10\x04R\auser_idR\x06amount\"i\n" +
+	"\border_id\x18\x01 \x01(\x03R\aorderIdJ\x04\b\x02\x10\x03J\x04\b\x03\x10\x04J\x04\b\x04\x10\x05R\auser_idR\x06amountR\x10simulate_failure\"i\n" +
 	"\x15CreatePaymentResponse\x12\x1d\n" +
 	"\n" +
 	"payment_id\x18\x01 \x01(\x03R\tpaymentId\x121\n" +
@@ -506,7 +497,7 @@ const file_payment_v1_payment_proto_rawDesc = "" +
 	"\rCreatePayment\x12 .payment.v1.CreatePaymentRequest\x1a!.payment.v1.CreatePaymentResponse\x12K\n" +
 	"\n" +
 	"GetPayment\x12\x1d.payment.v1.GetPaymentRequest\x1a\x1e.payment.v1.GetPaymentResponse\x12Q\n" +
-	"\fListPayments\x12\x1f.payment.v1.ListPaymentsRequest\x1a .payment.v1.ListPaymentsResponseB=Z;github.com/repeter513/shop-proto/gen/go/payment/v1;payment1b\x06proto3"
+	"\fListPayments\x12\x1f.payment.v1.ListPaymentsRequest\x1a .payment.v1.ListPaymentsResponseB>Z<github.com/repeter513/shop-proto/gen/go/payment/v1;paymentv1b\x06proto3"
 
 var (
 	file_payment_v1_payment_proto_rawDescOnce sync.Once

@@ -4,7 +4,7 @@
 // 	protoc        v7.34.1
 // source: order/v1/order.proto
 
-package order1
+package orderv1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -741,7 +741,7 @@ const file_order_v1_order_proto_rawDesc = "" +
 	"\vCancelOrder\x12\x1c.order.v1.CancelOrderRequest\x1a\x1d.order.v1.CancelOrderResponse\x12A\n" +
 	"\bGetOrder\x12\x19.order.v1.GetOrderRequest\x1a\x1a.order.v1.GetOrderResponse\x12G\n" +
 	"\n" +
-	"ListOrders\x12\x1b.order.v1.ListOrdersRequest\x1a\x1c.order.v1.ListOrdersResponseB9Z7github.com/repeter513/shop-proto/gen/go/order/v1;order1b\x06proto3"
+	"ListOrders\x12\x1b.order.v1.ListOrdersRequest\x1a\x1c.order.v1.ListOrdersResponseB:Z8github.com/repeter513/shop-proto/gen/go/order/v1;orderv1b\x06proto3"
 
 var (
 	file_order_v1_order_proto_rawDescOnce sync.Once

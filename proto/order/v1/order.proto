@@ -5,7 +5,7 @@ import "google/protobuf/timestamp.proto";
 package order.v1;
 
 
-option go_package = "github.com/repeter513/shop-proto/gen/go/order/v1;order1";
+option go_package = "github.com/repeter513/shop-proto/gen/go/order/v1;orderv1";
 
 service OrderService {
   rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
