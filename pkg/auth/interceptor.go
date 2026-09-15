@@ -27,7 +27,7 @@ var PublicCatalog = []string{
 	catalogv1.CatalogService_GetStock_FullMethodName,
 }
 
-func UnaryServerInterceptor(secret []byte, public ...string) grpc.UnaryServerInterceptor {
+func UnaryServerInterceptor(v *Verifier, public ...string) grpc.UnaryServerInterceptor {
 	skip := make(map[string]struct{}, len(public))
 	for _, m := range public {
 		skip[m] = struct{}{}
@@ -36,37 +36,34 @@ func UnaryServerInterceptor(secret []byte, public ...string) grpc.UnaryServerInt
 		if _, ok := skip[info.FullMethod]; ok {
 			return handler(ctx, req)
 		}
-		userID, err := userIDFromMetadata(ctx, secret)
+		claims, err := claimsFromMetadata(ctx, v)
 		if err != nil {
 			return nil, status.Error(codes.Unauthenticated, err.Error())
 		}
-		return handler(WithUserID(ctx, userID), req)
+		return handler(WithAuth(ctx, claims.UserID, claims.Roles), req)
 	}
 }
 
-func userIDFromMetadata(ctx context.Context, secret []byte) (int64, error) {
+func claimsFromMetadata(ctx context.Context, v *Verifier) (*Claims, error) {
 	md, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
-		return 0, errors.New("missing metadata")
+		return nil, errors.New("missing metadata")
 	}
 	vals := md.Get("authorization")
 	if len(vals) == 0 {
-		return 0, errors.New("missing authorization")
+		return nil, errors.New("missing authorization")
 	}
 	token := strings.TrimSpace(vals[0])
 	if token == "" {
-		return 0, errors.New("missing authorization")
+		return nil, errors.New("missing authorization")
 	}
 	token, ok = strings.CutPrefix(token, "Bearer ")
 	if !ok {
-		return 0, errors.New("invalid authorization format")
+		return nil, errors.New("invalid authorization format")
 	}
-	userID, err := ParseAccessUserID(token, secret)
-	if err != nil {
-		return 0, errors.New("invalid token")
+	claims, err := v.ParseAccess(token)
+	if err != nil || claims.UserID == 0 {
+		return nil, errors.New("invalid token")
 	}
-	if userID == 0 {
-		return 0, errors.New("invalid token")
-	}
-	return userID, nil
+	return claims, nil
 }

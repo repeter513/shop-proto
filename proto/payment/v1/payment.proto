@@ -35,6 +35,7 @@ message CreatePaymentRequest {
 message CreatePaymentResponse {
   int64 payment_id = 1;
   PaymentStatus status = 2;
+  string idempotency_key = 3;
 }
 message GetPaymentRequest {
   int64 payment_id = 1;

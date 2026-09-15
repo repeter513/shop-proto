@@ -32,7 +32,7 @@ proto/                  # исходные .proto файлы
 └── events/v1/
 
 gen/go/                 # сгенерированный Go-код (protoc-gen-go, protoc-gen-go-grpc)
-pkg/auth/               # общий JWT и gRPC auth interceptor
+pkg/auth/               # Ed25519 JWT (Signer/Verifier) и gRPC auth interceptor
 Makefile                # генерация
 go.mod
 ```
@@ -158,3 +158,33 @@ go get github.com/repeter513/shop-proto@latest
 ```
 
 Сгенерированный код (`gen/go/`) коммитится в репозиторий, чтобы потребители могли импортировать модуль без локального запуска `protoc`.
+
+## Auth (`pkg/auth`)
+
+JWT подписывается **Ed25519 (EdDSA)**. Приватный ключ только в [shop-auth](../shop-auth/README.md); остальные сервисы держат публичный ключ и только проверяют токены.
+
+### Генерация ключей (вне репозитория)
+
+```bash
+mkdir -p ~/.shop-keys
+openssl genpkey -algorithm ED25519 -out ~/.shop-keys/private.pem
+openssl pkey -in ~/.shop-keys/private.pem -pubout -out ~/.shop-keys/public.pem
+chmod 600 ~/.shop-keys/private.pem
+```
+
+Ключи не коммитятся (`*.pem` в `.gitignore`).
+
+
+Access-токен содержит `iss`, `aud` (список сервисов), refresh — `jti` + `aud: shop-auth`. Отзыв refresh — по `jti` в хранилище auth-сервиса.
+
+### Breaking change (v0.2.4)
+
+| Было | Стало |
+|------|-------|
+| `NewJWT(secret, accessTTL, refreshTTL)` | `NewSigner(priv, accessTTL, refreshTTL, issuer, audience)` + `NewVerifier(pub, issuer, audience)` |
+| `IssueRefreshToken(userID) (string, error)` | `IssueRefreshToken(userID) (token, jti, error)` |
+| `UnaryServerInterceptor(secret []byte, ...)` | `UnaryServerInterceptor(verifier, ...)` |
+| `ParseAccessUserID(token, secret)` | `ParseAccessUserID(token, verifier)` |
+| HS256 + общий секрет | EdDSA + `iss`/`aud`/`jti` |
+
+Старые HS256-токены после обновления сервисов не принимаются — нужен повторный login.

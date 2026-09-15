@@ -1,2 +1,3 @@
 .idea
-interceptor_test.go
+*.pem
+.shop-keys/

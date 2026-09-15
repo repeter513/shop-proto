@@ -203,11 +203,12 @@ func (x *CreatePaymentRequest) GetOrderId() int64 {
 }
 
 type CreatePaymentResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	PaymentId     int64                  `protobuf:"varint,1,opt,name=payment_id,json=paymentId,proto3" json:"payment_id,omitempty"`
-	Status        PaymentStatus          `protobuf:"varint,2,opt,name=status,proto3,enum=payment.v1.PaymentStatus" json:"status,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	PaymentId      int64                  `protobuf:"varint,1,opt,name=payment_id,json=paymentId,proto3" json:"payment_id,omitempty"`
+	Status         PaymentStatus          `protobuf:"varint,2,opt,name=status,proto3,enum=payment.v1.PaymentStatus" json:"status,omitempty"`
+	IdempotencyKey string                 `protobuf:"bytes,3,opt,name=idempotency_key,json=idempotencyKey,proto3" json:"idempotency_key,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *CreatePaymentResponse) Reset() {
@@ -252,6 +253,13 @@ func (x *CreatePaymentResponse) GetStatus() PaymentStatus {
 		return x.Status
 	}
 	return PaymentStatus_PAYMENT_STATUS_UNSPECIFIED
+}
+
+func (x *CreatePaymentResponse) GetIdempotencyKey() string {
+	if x != nil {
+		return x.IdempotencyKey
+	}
+	return ""
 }
 
 type GetPaymentRequest struct {
@@ -470,11 +478,12 @@ const file_payment_v1_payment_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"f\n" +
 	"\x14CreatePaymentRequest\x12\x19\n" +
-	"\border_id\x18\x01 \x01(\x03R\aorderIdJ\x04\b\x02\x10\x03J\x04\b\x03\x10\x04J\x04\b\x04\x10\x05R\auser_idR\x06amountR\x10simulate_failure\"i\n" +
+	"\border_id\x18\x01 \x01(\x03R\aorderIdJ\x04\b\x02\x10\x03J\x04\b\x03\x10\x04J\x04\b\x04\x10\x05R\auser_idR\x06amountR\x10simulate_failure\"\x92\x01\n" +
 	"\x15CreatePaymentResponse\x12\x1d\n" +
 	"\n" +
 	"payment_id\x18\x01 \x01(\x03R\tpaymentId\x121\n" +
-	"\x06status\x18\x02 \x01(\x0e2\x19.payment.v1.PaymentStatusR\x06status\"2\n" +
+	"\x06status\x18\x02 \x01(\x0e2\x19.payment.v1.PaymentStatusR\x06status\x12'\n" +
+	"\x0fidempotency_key\x18\x03 \x01(\tR\x0eidempotencyKey\"2\n" +
 	"\x11GetPaymentRequest\x12\x1d\n" +
 	"\n" +
 	"payment_id\x18\x01 \x01(\x03R\tpaymentId\"C\n" +

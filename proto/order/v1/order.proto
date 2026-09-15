@@ -42,12 +42,14 @@ message OrderItem {
 message CreateOrderRequest {
   reserved 1;
   reserved "user_id";
+  string idempotency_key = 2;
 }
 message CreateOrderResponse {
   Order order = 1;
 }
 message PayOrderRequest {
   int64 order_id = 1;
+  string idempotency_key = 2;
 }
 message PayOrderResponse {
   Order order = 1;
