@@ -1,3 +1,5 @@
+// Loading Ed25519 keys from PEM-encoded files.
+// Загрузка Ed25519 ключей из PEM-файлов.
 package auth
 
 import (
@@ -7,6 +9,8 @@ import (
 	"errors"
 )
 
+// LoadPrivateKeyPEM parses a PKCS#8 PEM block into an Ed25519 private key.
+// LoadPrivateKeyPEM разбирает PEM-блок PKCS#8 в Ed25519 приватный ключ.
 func LoadPrivateKeyPEM(data []byte) (ed25519.PrivateKey, error) {
 	block, _ := pem.Decode(data)
 	if block == nil {
@@ -23,6 +27,8 @@ func LoadPrivateKeyPEM(data []byte) (ed25519.PrivateKey, error) {
 	return pk, nil
 }
 
+// LoadPublicKeyPEM parses a PKIX PEM block into an Ed25519 public key.
+// LoadPublicKeyPEM разбирает PEM-блок PKIX в Ed25519 публичный ключ.
 func LoadPublicKeyPEM(data []byte) (ed25519.PublicKey, error) {
 	block, _ := pem.Decode(data)
 	if block == nil {

@@ -1,3 +1,5 @@
+// Tests for gRPC UnaryServerInterceptor: public skip, auth required, role propagation.
+// Тесты gRPC UnaryServerInterceptor: пропуск public, требование auth, проброс ролей.
 package auth
 
 import (
@@ -33,6 +35,8 @@ func TestUnaryServerInterceptor(t *testing.T) {
 		return id, nil
 	}
 
+	// Public method (RegisterUser) must not require a token.
+	// Публичный метод (RegisterUser) не должен требовать токен.
 	got, err := ic(context.Background(), nil, &grpc.UnaryServerInfo{FullMethod: PublicAuth[0]}, passthrough)
 	if err != nil {
 		t.Fatal(err)
@@ -41,6 +45,8 @@ func TestUnaryServerInterceptor(t *testing.T) {
 		t.Fatalf("public method must skip auth, got user %v", got)
 	}
 
+	// Protected method without token must return Unauthenticated.
+	// Защищённый метод без токена должен вернуть Unauthenticated.
 	_, err = ic(context.Background(), nil, &grpc.UnaryServerInfo{FullMethod: "/auth.v1.AuthService/GetUserInfo"}, passthrough)
 	if status.Code(err) != codes.Unauthenticated {
 		t.Fatalf("protected without token: %v", err)
@@ -56,6 +62,8 @@ func TestUnaryServerInterceptor(t *testing.T) {
 		t.Fatalf("want user 42, got %v", got)
 	}
 
+	// Roles from JWT must be available in handler context.
+	// Роли из JWT должны быть доступны в context handler.
 	roleCheck := func(ctx context.Context, _ any) (any, error) {
 		return HasRole(ctx, "admin"), nil
 	}
