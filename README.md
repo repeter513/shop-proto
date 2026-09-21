@@ -5,7 +5,7 @@
 **Экосистема:** [infra](../shop-infra/README.md) · [proto](README.md) · [auth](../shop-auth/README.md) · [catalog](../shop-catolog/README.md) · [cart](../shop-cart/README.md) · [order](../shop-order/README.md) · [payment](../shop-payment/README.md) · [bff](../shop-BFF/README.md) · [web](../shop-web/README.md)
 
 **Модуль:** `github.com/repeter513/shop-proto`  
-**Go:** 1.26.3 · **Тег для сервисов:** `v0.2.4`
+**Go:** 1.26.3 · **Тег для сервисов:** `v0.2.6`
 
 Реализации сервисов:
 
@@ -160,7 +160,7 @@ import (
 ```
 
 ```bash
-go get github.com/repeter513/shop-proto@v0.2.4
+go get github.com/repeter513/shop-proto@v0.2.6
 ```
 
 Сгенерированный код (`gen/go/`) коммитится в репозиторий, чтобы потребители могли импортировать модуль без локального запуска `protoc`.
