@@ -5,7 +5,7 @@
 **Экосистема:** [infra](../shop-infra/README.md) · [proto](README.md) · [auth](../shop-auth/README.md) · [catalog](../shop-catolog/README.md) · [cart](../shop-cart/README.md) · [order](../shop-order/README.md) · [payment](../shop-payment/README.md) · [bff](../shop-BFF/README.md) · [web](../shop-web/README.md)
 
 **Модуль:** `github.com/repeter513/shop-proto`  
-**Go:** 1.26.3 · **Тег для сервисов:** `v0.2.6`
+**Go:** 1.26.3 · **Тег для сервисов:** `v0.2.7`
 
 Реализации сервисов:
 
@@ -19,6 +19,8 @@
 | `events.v1` | асинхронные события (планируется) |
 
 Локальный стек: [shop-infra](../shop-infra/README.md)
+
+Суммы в proto (`price`, `total_price`, `amount`) — **int64 в минорных единицах** (копейки).
 
 ## Структура
 
@@ -62,8 +64,8 @@ go.mod
 | `ListCategories` | — | Список категорий |
 | `GetStock` | — | Доступный остаток |
 | `ReserveStock` | JWT | Резервирование товара под заказ |
-| `ReleaseStock` | JWT | Снятие резерва |
-| `ConfirmReservation` | JWT | Подтверждение резерва — списание стока |
+| `ReleaseStock` | JWT | Снятие резерва (`reservation_id` или `order_id`) |
+| `ConfirmReservation` | JWT | Подтверждение резерва — списание стока (`reservation_id` или `order_id`) |
 
 ### Cart (`cart.v1.CartService`) — [shop-cart](../shop-cart/README.md)
 
@@ -100,6 +102,7 @@ go.mod
 | `CreatePayment` | Создать платёж по заказу |
 | `GetPayment` | Платёж по ID |
 | `ListPayments` | Список платежей (`user_id` из JWT, фильтр `order_id`) |
+| `VoidPayment` | Отменить успешный платёж по `order_id` (SUCCESS → FAILED) |
 
 Статусы платежа: `PENDING`, `SUCCESS`, `FAILED`.
 
@@ -160,7 +163,7 @@ import (
 ```
 
 ```bash
-go get github.com/repeter513/shop-proto@v0.2.6
+go get github.com/repeter513/shop-proto@v0.2.7
 ```
 
 Сгенерированный код (`gen/go/`) коммитится в репозиторий, чтобы потребители могли импортировать модуль без локального запуска `protoc`.
